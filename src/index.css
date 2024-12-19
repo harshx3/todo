@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* --background-color: #EDE8F5; */
+  --input-button-color: #ADBBDA;
+  --text-color: #3D52A0;
+  --todo-background: #8697C4;
+  --background-color: #7091E6;
+}
+
+body {
+  background-color: var(--background-color);
+  /* #7091E6 */
+  width: 100vw;
+  height: 100vh;
+}
+
+.nav {
+  /* border: 2px solid; */
+  font-size: 1.5rem;
+}
+
+.navList {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.navList li {
+  list-style: none;
+  text-decoration: none;
+}
+
+.input {
+  /* border: 2px solid black; */
+  min-width: 50%;
+  outline: none;
+  border: none;
+  padding: .5rem;
+  border-radius: .5rem;
+  background-color: var(--input-button-color);
+}
+
+.input::placeholder {
+  text-transform: capitalize;
+  color: var(--text-color);
+}
+
+.button {
+  padding: .5rem;
+  border-radius: .5rem;
+  border: none;
+  padding: 0.1rem 1.5rem;
+  background-color: var(--input-button-color);
+  font-weight: bold;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.input-button-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+}
+
+.recent-todo-container {
+  /* border: 2px solid; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+}
+
+.recent-todo-container h3 {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--text-color);
+}
+
+h1 {
+  color: var(--text-color);
+}
+
+.recent-todos {
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+  background-color: var(--todo-background);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.todos-list-container {
+  /* border: 2px solid black; */
+  margin: 2rem;
+  height: 70vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.search-button-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+}
+
+.list-text-date-div {
+  /* border: 2px solid; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-button-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.3rem .5rem;
+}
