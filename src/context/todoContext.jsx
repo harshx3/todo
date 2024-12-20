@@ -22,8 +22,10 @@ export const TodoProvider = ({ children }) => {
     }, [todos]);
 
     const setWordToShow = (todoText) => {
-        const words = todoText.split(" ");
-        console.log(words);
+        if (!todoText || typeof todoText !== "string") return "";
+        const words = todoText.split(" ") ?? "helloWorld";
+        // console.log(words);
+        // console.log(words);
         return words.length > 7 ? words.slice(0, 7).join(" ") + "..." : todoText;
     };
 
