@@ -32,7 +32,7 @@ const Home = () => {
         }
 
         const newTodo = {
-            todo: todoValue,
+            todo: todoValue.trim(),
             time: getFormattedTime(),
             date: getFormattedDate(),
             timestamp: Date.now(),
@@ -40,6 +40,7 @@ const Home = () => {
 
         const updatedTodos = [...todos, newTodo].sort((a, b) => b.timestamp - a.timestamp);
         setTodos(updatedTodos);
+        localStorage.setItem("todos", JSON.stringify(updatedTodos));
         setTodoValue("");
         toast.success("Added");
     };
@@ -65,15 +66,18 @@ const Home = () => {
             <div className="recent-todo-container">
                 <h3> Recent Todos</h3>
 
-                {homePageTodos.map((todo, index) => (
-                    <div key={index} className="recent-todos">
-                        <p style={{ color: "#3D52A0", textTransform: "capitalize", fontSize: "1.2rem" }}>{setWordToShow(todo.todo)}</p>
-                        <div>
-                            <p style={{ fontWeight: "bold", color: "#3D52A0" }}>{todo.time}</p>
-                            <p style={{ fontWeight: "bold", color: "#3D52A0" }}>{todo.date}</p>
-                        </div>
-                    </div>
-                ))}
+                {
+                    homePageTodos.length === 0 ? <h1 style={{ textAlign: "center", color: "red", marginTop: "2rem" }}>Empty</h1> :
+                        homePageTodos.map((todo, index) => (
+                            <div key={index} className="recent-todos">
+                                <p style={{ color: "#3D52A0", textTransform: "capitalize", fontSize: "1.2rem" }}>
+                                    {setWordToShow(todo.todo)}</p>
+                                <div>
+                                    <p style={{ fontWeight: "bold", color: "#3D52A0" }}>{todo.time}</p>
+                                    <p style={{ fontWeight: "bold", color: "#3D52A0" }}>{todo.date}</p>
+                                </div>
+                            </div>
+                        ))}
 
             </div>
         </>

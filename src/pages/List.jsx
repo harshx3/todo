@@ -15,16 +15,52 @@ const List = () => {
 
     const handleSearch = (e) => {
         setSearchQuery(e.target.value);
-        console.log(searchQuery);
+        // console.log(searchQuery);
     }
 
     const filteredTodos = todos.filter((todo) => (
-        todo.todo.toLowerCase().includes(searchQuery)
+        todo && todo.todo && todo.todo.toLowerCase().includes(searchQuery.toLowerCase())
     ));
+
+    const getFormattedTime = () => {
+        const date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        const ampm = hours >= 12 ? "pm" : "am";
+        hours = hours % 12 || 12; // Convert 0 to 12
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        return `${hours}:${minutes} ${ampm}`;
+    };
+
+    const getFormattedDate = () => {
+        const now = new Date();
+        return `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+    };
 
     const handleUpdate = (timestamp) => {
         const selectedTodo = todos.find(todo => todo.timestamp === timestamp);
+        // console.log(selectedTodo)
+        if (selectedTodo) {
+            const newTodo = prompt("Edit Your Todo", selectedTodo.todo);
+            if (!newTodo || newTodo.trim() === "") return;
+            const getNewDate = getFormattedDate();
+            const getNewTime = getFormattedTime();
+            const updatedTodo = {
+                todo: newTodo,
+                time: getNewTime,
+                date: getNewDate,
+                timestamp: Date.now(),
+            }
+            const updatedTodos = todos
+                .filter(todo => todo.timestamp !== timestamp)
+                .concat(updatedTodo)
+                .sort((a, b) => b.timestamp - a.timestamp);
 
+            setTodos(updatedTodos);
+            localStorage.setItem("todos", JSON.stringify(todos));
+
+            toast.success("Updated Successfully");
+        }
 
     }
 
