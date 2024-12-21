@@ -10,6 +10,8 @@ Currently, two official plugins are available:
 ##Todo App
 A simple and intuitive Todo application to manage notes and increase productivity. This app allows you to create, edit, delete, and update tasks. It's built with React and designed to be a user-friendly Note manager.
 
+## https://todo-theta-lilac.vercel.app/
+
 # Features
   * Add new notes <br>
   * Edit existing notes <br>
