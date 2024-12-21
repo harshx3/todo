@@ -18,6 +18,6 @@ A simple and intuitive Todo application to manage notes and increase productivit
   Responsive design for mobile and desktop
 
 # Tech Stack
- ## Frontend: React.js
- ## State Management: React useState
- ## Database (Optional): LocalStorage
+  Frontend: React.js
+  State Management: React useState
+  Database (Optional): LocalStorage
