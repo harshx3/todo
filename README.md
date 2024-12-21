@@ -11,8 +11,8 @@ Currently, two official plugins are available:
 A simple and intuitive Todo application to manage notes and increase productivity. This app allows you to create, edit, delete, and update tasks. It's built with React and designed to be a user-friendly Note manager.
 
 # Features
-  Add new notes
-  Edit existing notes
+  Add new notes <br>
+  Edit existing notes <br>
   Delete notes
   Search notes
   Responsive design for mobile and desktop
