@@ -8,6 +8,7 @@ const Home = () => {
     const [todoValue, setTodoValue] = useState("");
     const { todos, setTodos, setWordToShow } = useTodos();
     const [homePageTodos, setHomePageTodos] = useState([]);
+    const [todoTitle, setTodoTitle] = useState("");
 
 
     const getFormattedTime = () => {
@@ -26,12 +27,13 @@ const Home = () => {
     };
 
     const handleAddTodo = () => {
-        if (todoValue.trim() === "") {
-            toast.error("Enter the Text");
+        if (todoValue.trim() === "" || todoTitle.trim() === "") {
+            toast.error("Enter the Text or Title");
             return;
         }
 
         const newTodo = {
+            todoName: todoTitle.trim(),
             todo: todoValue.trim(),
             time: getFormattedTime(),
             date: getFormattedDate(),
@@ -46,42 +48,72 @@ const Home = () => {
     };
 
     useEffect(() => {
-        const sortedTodos = [...todos].sort((a, b) => b.timestamp - a.timestamp).slice(0, 5);
+        const sortedTodos = [...todos].sort((a, b) => b.timestamp - a.timestamp).slice(0, 6);
         setHomePageTodos(sortedTodos);
     }, [todos]);
 
     return (
-        <>
-            <div className="input-button-container">
-                <Input
-                    type="text"
-                    placeholder="Enter your Text"
-                    inputId="todoInput"
-                    value={todoValue}
-                    onChange={(e) => setTodoValue(e.target.value)}
-                />
-                <Button name="Create" onClick={handleAddTodo} cName={"button"} />
-                <ToastContainer autoClose={1000} />
-            </div>
-            <div className="recent-todo-container">
-                <h3> Recent Todos</h3>
 
-                {
-                    homePageTodos.length === 0 ? <h1 style={{ textAlign: "center", color: "red", marginTop: "2rem" }}>Empty</h1> :
+        <div className="home-container">
+            <div className="input-section">
+                <h2 className="section-title">Create New Todo</h2>
+                <div className="input-fields">
+                    <Input
+                        label="Todo Title"
+                        type="text"
+                        placeholder="Enter todo title..."
+                        value={todoTitle}
+                        onChange={(e) => setTodoTitle(e.target.value)}
+                        inputId="todoTitle"
+                    />
+                    <Input
+                        label="Todo Content"
+                        type="text"
+                        placeholder="Enter todo content..."
+                        value={todoValue}
+                        onChange={(e) => setTodoValue(e.target.value)}
+                        inputId="todoContent"
+                    />
+                </div>
+                <Button name="Create Todo" onClick={handleAddTodo} cName="create-button" />
+                <ToastContainer />
+            </div>
+
+            <div className="recent-section">
+                <h2 className="section-title">Recent Todos</h2>
+                <div className="recent-todo-grid">
+                    {homePageTodos.length === 0 ? (
+                        <div className="empty-state">
+                            <h3 className="empty-message">No todos yet</h3>
+                            <p className="empty-submessage">Create your first todo above!</p>
+                        </div>
+                    ) : (
                         homePageTodos.map((todo, index) => (
-                            <div key={index} className="recent-todos">
-                                <p style={{ color: "#3D52A0", textTransform: "capitalize", fontSize: "1.2rem" }}>
-                                    {setWordToShow(todo.todo)}</p>
-                                <div>
-                                    <p style={{ fontWeight: "bold", color: "#3D52A0" }}>{todo.time}</p>
-                                    <p style={{ fontWeight: "bold", color: "#3D52A0" }}>{todo.date}</p>
+                            <div key={index} className="todo-card">
+                                <div className="todo-header">
+                                    <div className="todo-main">
+                                        <div className="todo-title-section">
+                                            <label className="todo-label">Title</label>
+                                            <h4 className="todo-title">{todo.todoName}</h4>
+                                        </div>
+                                        <div className="todo-content-section">
+                                            <label className="todo-label">Content</label>
+                                            <p className="todo-content">{setWordToShow(todo.todo)}</p>
+                                        </div>
+                                    </div>
+                                    <div className="todo-meta">
+                                        <span className="todo-time">{todo.time}</span>
+                                        <span className="todo-date">{todo.date}</span>
+                                    </div>
                                 </div>
                             </div>
-                        ))}
-
+                        ))
+                    )}
+                </div>
             </div>
-        </>
+        </div>
     );
+
 };
 
 export default Home;

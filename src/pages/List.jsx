@@ -75,36 +75,70 @@ const List = () => {
         setShowFullText(showFullText === timestamp ? null : timestamp);
 
     }
-
-
     return (
-        <div>
-            <ToastContainer time={1000} />
-            <div className="search-button-container">
-                <Input type="search" placeholder={"Search todo"} value={searchQuery} onChange={handleSearch} />
-                <Button name={"Clear Input"} cName={"button"} onClick={handleSearch} />
+        <div className="list-container">
+            <div className="search-section">
+                <div className="search-wrapper">
+                    <Input
+                        type="search"
+                        placeholder="Search todos..."
+                        value={searchQuery}
+                        onChange={handleSearch}
+                        label="Search Todos"
+                        inputId="searchTodo"
+                    />
+                    <Button
+                        name="Clear Search"
+                        cName="clear-button"
+                        onClick={() => setSearchQuery("")}
+                    />
+                </div>
             </div>
-            <h1 style={{ textAlign: "center", marginTop: "1rem" }}>All Todos</h1>
-            <div className="todos-list-container">
-                {(searchQuery !== "" ? filteredTodos : todos).map((todo, index) => (
-                    <div key={index} className="recent-todos">
-                        <div className="list-text-date-div">
-                            <p onClick={() => handleTodoClick(todo.timestamp)} style={{ color: "#3D52A0", textTransform: "capitalize", fontSize: "1.2rem", cursor: "pointer" }}>{showFullText === todo.timestamp ? todo.todo : setWordToShow(todo.todo)}</p>
-                            <div>
-                                <p style={{ fontWeight: "bold", color: "#3D52A0" }}>{todo.time}</p>
-                                <p style={{ fontWeight: "bold", color: "#3D52A0" }}>{todo.date}</p>
+
+            <div className="todos-section">
+                <h2 className="section-title">All Todos</h2>
+                <div className="todos-grid">
+                    {(searchQuery !== "" ? filteredTodos : todos).length === 0 ? (
+                        <div className="empty-state">
+                            <h3 className="empty-message">No todos found</h3>
+                            <p className="empty-submessage">
+                                {searchQuery ? "Try a different search term" : "Create your first todo!"}
+                            </p>
+                        </div>
+                    ) : (
+                        (searchQuery !== "" ? filteredTodos : todos).map((todo, index) => (
+                            <div key={index} className="todo-card">
+                                <div className="todo-content-wrapper">
+                                    <div className="todo-main">
+                                        <p className="todo-text" onClick={() => handleTodoClick(todo.timestamp)}>
+                                            {showFullText === todo.timestamp ? todo.todo : setWordToShow(todo.todo)}
+                                        </p>
+                                        <div className="todo-meta">
+                                            <span className="todo-time">{todo.time}</span>
+                                            <span className="todo-date">{todo.date}</span>
+                                        </div>
+                                    </div>
+                                    <div className="todo-actions">
+                                        <Button
+                                            name="Update"
+                                            cName="action-button update"
+                                            onClick={() => handleUpdate(todo.timestamp)}
+                                        />
+                                        <Button
+                                            name="Remove"
+                                            cName="action-button remove"
+                                            onClick={() => handleRemove(todo.timestamp)}
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div className="list-button-div">
-                            <Button name={"Update"} cName={"button"} onClick={() => handleUpdate(todo.timestamp)} />
-                            <Button name={"Remove"} cName={"button"} onClick={() => handleRemove(todo.timestamp)} />
-                        </div>
-                    </div>
-                ))
-                }
+                        ))
+                    )}
+                </div>
             </div>
+            <ToastContainer autoClose={1000} />
         </div>
-    )
+    );
 };
 
 export default List;

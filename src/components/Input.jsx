@@ -1,11 +1,22 @@
-import { useState } from "react";
-
-const Input = ({ type = "text", placeholder, inputId, value, onChange }) => {
-
+// components/Input.jsx
+const Input = ({ label, type, placeholder, value, onChange, inputId }) => {
     return (
-        <input type={type} placeholder={placeholder} id={inputId} value={value} onChange={onChange} autoFocus className="input" />
-    )
+        <div className="input-wrapper">
+            {label && (
+                <label htmlFor={inputId} className="input-label">
+                    {label}
+                </label>
+            )}
+            <input
+                type={type}
+                id={inputId}
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+                className="input-field"
+            />
+        </div>
+    );
 };
-
 
 export default Input;

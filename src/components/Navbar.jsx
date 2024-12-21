@@ -1,14 +1,30 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 const Navbar = () => {
     return (
-        <nav className="nav">
-            <ul className="navList">
-                <li><Link to="/" style={{ textDecoration: "none" }}>Home</Link></li>
-                <li><Link to="/list" style={{ textDecoration: "none" }}>List</Link></li>
-            </ul>
+        <nav className="navbar">
+            <div className="nav-container">
+                <div className="nav-brand">
+                    <h1>Todo App</h1>
+                </div>
+                <div className="nav-links">
+                    <NavLink
+                        to={"/"}
+                        className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+                    >
+                        Home
+                    </NavLink>
+                    <NavLink
+                        to={"/list"}
+                        className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+                    >
+                        All Todos
+                    </NavLink>
+
+                </div>
+            </div>
         </nav>
-    )
+    );
 };
 
 export default Navbar;
