@@ -44,6 +44,7 @@ const Home = () => {
         setTodos(updatedTodos);
         localStorage.setItem("todos", JSON.stringify(updatedTodos));
         setTodoValue("");
+        setTodoTitle("");
         toast.success("Added");
     };
 

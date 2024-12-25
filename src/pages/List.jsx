@@ -110,6 +110,9 @@ const List = () => {
                             <div key={index} className="todo-card">
                                 <div className="todo-content-wrapper">
                                     <div className="todo-main">
+                                        <label className="todo-label">Title</label>
+                                        <h4 className="todo-title">{todo.todoName}</h4>
+                                        <label className="todo-label">Content</label>
                                         <p className="todo-text" onClick={() => handleTodoClick(todo.timestamp)}>
                                             {showFullText === todo.timestamp ? todo.todo : setWordToShow(todo.todo)}
                                         </p>
